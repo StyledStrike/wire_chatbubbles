@@ -40,13 +40,13 @@ if (first()) {
     runOnChat(1)
 }
 
-if ( chatClk(owner()) ) {
+if (chatClk(owner())) {
     # randomly change the scale of the next chat bubble
-    chatBubbleScale( random(0.2, 2.0) )
+    chatBubbleScale(random(0.2, 2.0))
 
     # shows a bubble on top of this chip containing
     # whatever the owner said last
-    entity():showChatBubble( lastSaid() )
+    entity():showChatBubble(lastSaid())
 }
 ```
 
@@ -56,7 +56,7 @@ if ( chatClk(owner()) ) {
 --@name ChatBubblesExample
 --@server
 
-hook.add('PlayerSay', 'example_PlayerSay', function(_, text, _)
+hook.add('PlayerSay', 'example_PlayerSay', function(_, text)
 
     -- lets show a red-ish chat bubble
     local params = {
