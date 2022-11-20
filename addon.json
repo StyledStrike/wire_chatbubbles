@@ -1,7 +1,12 @@
 {
-	"title": "[E2/SF] Chat Bubbles",
-	"type": "ServerContent",
-	"tags": [
-		"fun"
-	]
+    "title": "[E2/SF] Chat Bubbles",
+    "type": "ServerContent",
+    "tags":	["fun"],
+    "ignore": [
+        ".git*",
+        "*.txt",
+        "*.md",
+        "glualint.json",
+        "LICENSE"
+    ]
 }

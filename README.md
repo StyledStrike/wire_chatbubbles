@@ -1,4 +1,5 @@
 ## wire_chatbubbles
+
 A Expression 2 / Starfall extension to display bubbles of text on top of entities. Alternatively developers can use this to display bubbles with their own code.
 
 ### Installation
@@ -56,12 +57,12 @@ if (chatClk(owner())) {
 --@name ChatBubblesExample
 --@server
 
-hook.add('PlayerSay', 'example_PlayerSay', function(_, text)
+hook.add( 'PlayerSay', 'StarfallBubbleExample', function( _, text )
 
     -- lets show a red-ish chat bubble
     local params = {
-        textColor = Color(255, 200, 200, 255),
-        backgroundColor = Color(50, 0, 0, 200),
+        textColor = Color( 255, 200, 200, 255 ),
+        backgroundColor = Color( 50, 0, 0, 200 ),
     
         lifetime = 5, -- in seconds
         scale = 2
@@ -69,7 +70,7 @@ hook.add('PlayerSay', 'example_PlayerSay', function(_, text)
 
     -- Show a chat bubble on top of this chip when anyone says something
     -- The "params" table is optional.
-    chatbubbles.show(chip(), text, params)
+    chatbubbles.show( chip(), text, params )
 
-end)
+end )
 ```
