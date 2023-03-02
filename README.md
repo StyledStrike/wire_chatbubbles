@@ -28,26 +28,27 @@ Cost | Function						| Description
 ### Expression 2 Example
 
 ```perl
-@name ChatBubblesExample
+@name Chat Bubbles Example
 
 if (first()) {
     # makes the chat bubbles last longer
     chatBubbleLifetime(10)
 
-    # makes the text green and fully opaque
-    chatBubbleTextColor(0, 255, 0, 255)
-
-    # makes this chip run everytime someone sends a message
-    runOnChat(1)
+    # makes the text dark blue and fully opaque
+    chatBubbleTextColor(0, 0, 150, 255)
+    
+    # makes the background white and a bit transparent
+    chatBubbleBackgroundColor(255, 255, 255, 150)
 }
 
-if (chatClk(owner())) {
-    # randomly change the scale of the next chat bubble
-    chatBubbleScale(random(0.2, 2.0))
+event chat(Player:entity, Text:string, _) {
+    if (Player == owner()) {
+        # randomly choose the scale of the next chat bubble
+        chatBubbleScale(random(0.2, 2.0))
 
-    # shows a bubble on top of this chip containing
-    # whatever the owner said last
-    entity():showChatBubble(lastSaid())
+        # shows a bubble on top of this chip containing what we said
+        entity():showChatBubble(Text)
+    }
 }
 ```
 
@@ -57,7 +58,7 @@ if (chatClk(owner())) {
 --@name ChatBubblesExample
 --@server
 
-hook.add( 'PlayerSay', 'StarfallBubbleExample', function( _, text )
+hook.add( "PlayerSay", "StarfallBubbleExample", function( _, text )
 
     -- lets show a red-ish chat bubble
     local params = {
