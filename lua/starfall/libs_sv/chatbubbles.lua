@@ -4,7 +4,7 @@ local checkluatype = SF.CheckLuaType
 -- @name chatbubbles
 -- @class library
 -- @libtbl chatbubbles_library
-SF.RegisterLibrary( 'chatbubbles' )
+SF.RegisterLibrary( "chatbubbles" )
 
 return function( instance )
 
@@ -12,7 +12,8 @@ local chatbubbles_library = instance.Libraries.chatbubbles
 local cunwrap = instance.Types.Color.Unwrap
 local eunwrap = instance.Types.Entity.Unwrap
 
-local function checkNumberParameter( v, min, max )
+local function validateNumber( v, default, min, max )
+    v = v or default
     checkluatype( v, TYPE_NUMBER )
 
     return math.Clamp( v, min, max )
@@ -30,12 +31,12 @@ end
 --- Shows a chat bubble on top of a entity.
 -- 
 -- The optional "params" argument can have the following keys:
---	Color / textColor        - The text color
---	Color / backgroundColor  - The background color
---	Number / lifetime        - How long (in seconds) the bubble will last
---	Number / scale           - Bubble scale
---	Number / offsetZ         - The Z offset (in units)
---	Number / align           - (Only visible with mutiline text) The text alignment
+--	textColor       - (Color) The text color
+--	backgroundColor - (Color) The background color
+--	lifetime        - (number) How long (in seconds) the bubble will last
+--	scale           - (number) Bubble scale
+--	offsetZ         - (number) The Z offset (in units)
+--	align           - (number) (Only visible with mutiline text) The text alignment
 -- @server
 -- @param Entity ent Target entity to display a bubble on top of.
 -- @param string text Text to be displayed.
@@ -45,7 +46,7 @@ function chatbubbles_library.show( ent, text, params )
     ent = eunwrap( ent )
 
     if not ent:IsValid() or ent:IsWorld() then
-        SF.Throw( 'Entity is not valid.', 3 )
+        SF.Throw( "Entity is not valid.", 3 )
     end
 
     local p = {}
@@ -56,14 +57,11 @@ function chatbubbles_library.show( ent, text, params )
         p.fg = params.textColor and cunwrap( params.textColor )
         p.bg = params.backgroundColor and cunwrap( params.backgroundColor )
 
-        p.lifetime = checkNumberParameter( params.lifetime, 1, 10 )
-        p.scale = checkNumberParameter( params.scale, 0.1, 2 )
-        p.offset = checkNumberParameter( params.offsetZ, -500, 500 )
-        p.align = checkNumberParameter( params.align, 0, 2 )
-
-        if p.align then
-            p.align = math.Round( p.align )
-        end
+        p.lifetime = validateNumber( params.lifetime, 5, 1, 10 )
+        p.scale = validateNumber( params.scale, 1, 0.1, 2 )
+        p.offset = validateNumber( params.offsetZ, 0, -500, 500 )
+        p.align = validateNumber( params.align, 1, 0, 2 )
+        p.align = math.Round( p.align )
     end
 
     if instance.player == SF.Superuser then
