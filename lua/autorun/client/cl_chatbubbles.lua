@@ -3,8 +3,8 @@ local border = 28
 
 local DRAW_DISTANCE_SQR = 2000 ^ 2
 
-surface.CreateFont( 'ChatBubbleFont', {
-    font = 'Roboto',
+surface.CreateFont( "ChatBubbleFont", {
+    font = "Roboto",
     extended = false,
     size = 80,
     weight = 600,
@@ -15,7 +15,7 @@ surface.CreateFont( 'ChatBubbleFont', {
 
 local function drawBubble( b )
     if not b.w then
-        surface.SetFont( 'ChatBubbleFont' )
+        surface.SetFont( "ChatBubbleFont" )
         b.w, b.h = surface.GetTextSize( b.text )
         b.textX = 0
         b.y = -b.h
@@ -28,10 +28,10 @@ local function drawBubble( b )
     end
 
     draw.RoundedBox( 4, ( b.w * -0.5 ) - ( border * 0.5 ), b.y - ( border * 0.5 ), b.w + border, b.h + border, b.bg )
-    draw.DrawText( b.text, 'ChatBubbleFont', b.textX, b.y, b.fg, b.align )
+    draw.DrawText( b.text, "ChatBubbleFont", b.textX, b.y, b.fg, b.align )
 end
 
-hook.Add( 'PostDrawTranslucentRenderables', 'chatbubbles_RenderActiveBubbles',
+hook.Add( "PostDrawTranslucentRenderables", "chatbubbles.RenderActiveBubbles",
     function( _, drawingSkybox, drawing3DSkybox )
 
     if drawingSkybox or drawing3DSkybox then return end
@@ -69,7 +69,7 @@ hook.Add( 'PostDrawTranslucentRenderables', 'chatbubbles_RenderActiveBubbles',
     end
 end )
 
-net.Receive( 'chatbubbles.show', function()
+net.Receive( "chatbubbles.show", function()
     local ent = net.ReadEntity()
     local str = net.ReadString()
 

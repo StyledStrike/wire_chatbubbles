@@ -30,7 +30,7 @@ end
 
 --- Shows a chat bubble on top of a entity.
 -- 
--- The optional "params" argument can have the following keys:
+-- The optional "params" table can have the following keys:
 --	textColor       - (Color) The text color
 --	backgroundColor - (Color) The background color
 --	lifetime        - (number) How long (in seconds) the bubble will last

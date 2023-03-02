@@ -1,24 +1,24 @@
 --[[
     ChatBubbles support for Expression 2
 ]]
-E2Lib.RegisterExtension( 'chatbubbles', true )
+E2Lib.RegisterExtension( "chatbubbles", true )
 
 local function ShowBubble( self, ent, text )
     if not E2Lib.isOwner( self, ent ) then
-        error( 'You cannot show a chat bubble on a entity you do not own!' )
+        error( "You cannot show a chat bubble on a entity you do not own!" )
     end
 
     ChatBubbles:OwnedShowOnEntity( self.player, ent, text, self.data.chatBubbleParams )
 end
 
-__e2setcost(5)
+__e2setcost( 5 )
 
 e2function number canShowChatBubbles()
     return ChatBubbles:CanPlayerShowBubbles( self.player ) and 1 or 0
 end
 
 e2function number getChatBubbleBurstLimit()
-    return ChatBubbles.SHOW_BURST_LIMIT
+    return ChatBubbles.BURST_LIMIT
 end
 
 e2function void chatBubbleTextColor( r, g, b, a )
@@ -46,7 +46,7 @@ e2function void chatBubbleAlign( align )
     self.data.chatBubbleParams.align = align
 end
 
-__e2setcost(50)
+__e2setcost( 50 )
 
 e2function void entity:showChatBubble( string text )
     ShowBubble( self, this, text )
@@ -56,7 +56,7 @@ e2function void showChatBubble( string text )
     ShowBubble( self, self.player, text )
 end
 
-registerCallback( 'construct', function( self )
+registerCallback( "construct", function( self )
     self.data = self.data or {}
 
     self.data.chatBubbleParams = {
